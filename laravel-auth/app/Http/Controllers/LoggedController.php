@@ -28,8 +28,8 @@ class LoggedController extends Controller
             'name' => 'required|string|min:3',
             'model' => 'required|string|min:3',
             'kw' => 'required|integer|min:10|max:2000',
-            'brand_id' => 'required|integer',
-            'pilot_id.*' => 'required_if:current,1|integer'
+            'brand_id' => 'required|exists:App\Brand,id|integer',
+            'pilot_id.*' => 'required_if:current,1|distinct|exists:App\Pilot,id|integer'
         ]);
 
         $brand = Brand::findOrFail($request -> get('brand_id'));
@@ -58,8 +58,8 @@ class LoggedController extends Controller
             'name' => 'required|string|min:3',
             'model' => 'required|string|min:3',
             'kw' => 'required|integer|min:10|max:2000',
-            'brand_id' => 'required|integer',
-            'pilot_id.*' => 'required_if:current,1|integer'
+            'brand_id' => 'required|exists:App\Brand,id|integer',
+            'pilot_id.*' => 'required_if:current,1|distinct|exists:App\Pilot,id|integer'
         ]);
 
         $car = Car::findOrFail($id);
